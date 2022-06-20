@@ -6,6 +6,7 @@ class Scraper:
         self.baseUrl = 'https://api-mainnet.magiceden.dev/v2/'
         self.config = config
 
+
     def getCollections(self):
         print("Getting all collections from MagicEden.io...")
 
@@ -25,23 +26,20 @@ class Scraper:
         print("Done\n")
         return collections
 
+
     def getListing(self, symbol):
         print('Getting all the NFT from the marketplace...')
 
         listings = list()
-        counter = 0
-
-        while True:
-            response = requests.get(self.baseUrl + f'collections/{symbol}/listings?offset={counter}').json()
-            if len(response) < 1:
-                break
-
+        try:
+            response = requests.get(self.baseUrl + f'collections/{symbol}/listings?offset=0').json()
             for i in range(len(response)):
                 listings.append({'price': response[i]['price'], 'tokenMint': response[i]['tokenMint']})
-
-            counter += len(response)
+        except Exception as e:
+            print(e)
 
         return listings
+
 
     def getEligibleListings(self, listings):
         eligibleListings = list()
