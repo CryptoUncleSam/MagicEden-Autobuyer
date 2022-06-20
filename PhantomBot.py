@@ -34,7 +34,7 @@ class PhantomBot:
 
     def initWallet(self, driver):
         print("Init wallet...")
-        driver.switch_to.window(driver.window_handles[1])
+        driver.switch_to.window(driver.window_handles[0])
 
         WebDriverWait(driver, 120).until(EC.presence_of_element_located(
             (By.XPATH, "//*[@id='root']/main/div[2]/div/div[2]/button[2]")))
@@ -75,9 +75,9 @@ class PhantomBot:
     def selectWallet(self, driver):
         print("Selecting wallet...")
         WebDriverWait(driver, 120).until(EC.presence_of_element_located(
-            (By.XPATH, "//button[contains(text(), 'Select Wallet')]")))
+            (By.XPATH, "//button[contains(text(), 'Connect Wallet')]")))
         main_wallet = driver.find_element(
-            By.XPATH, "//button[contains(text(), 'Select Wallet')]")
+            By.XPATH, "//button[contains(text(), 'Connect Wallet')]")
         main_wallet.click()
 
         WebDriverWait(driver, 120).until(EC.presence_of_element_located(
